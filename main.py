@@ -58,11 +58,15 @@ def game(userRegion):
     regionCountries2 = regionCountries[rand.randrange(0, len(regionCountries))]
     capitalQuestion= {
         "Question": f"¿Cual es la capital de {regionCountries2}?",
-        "Answer": "COGEMOS EL PAIS Y SACAMOS SU CAPITAL PARA EVALUAR CON LA RESPUESTA DEL USUARIO {capital}"
-    }
-    populationQuestion= {
+        "key": "capital",
+        "Answer": "COGEMOS EL PAIS Y SACAMOS SU CAPITAL PARA EVALUAR CON LA RESPUESTA DEL USUARIO {capital}",
+        "UserAnswer": None
+    },
+    {
         "Question": f"¿Cual es la población de {regionCountries2}?",
-        "Answer": "COGEMOS EL PAIS Y SACAMOS SU POBLACION PARA EVALUAR CON LA RESPUESTA DEL USUARIO {population}"
+        "Key": "population",
+        "Answer": "COGEMOS EL PAIS Y SACAMOS SU POBLACION PARA EVALUAR CON LA RESPUESTA DEL USUARIO {population}",
+        "UserAnswer": None
     }
     questions = [capitalQuestion["Question"], populationQuestion["Question"]]
     
