@@ -8,7 +8,6 @@ url = "https://restcountries.com/v3.1"
 # data = req.get(url+"/all").json()
 # res = req.get(f"{url}/name/{user}").json()
 
-
 def menu():
     print("1. Search for country information")
     print("2. Download the flag of a country")
@@ -22,7 +21,7 @@ def subMenuFindCountry():
 def reloadMenu():
     print("")
     input("¡Pulse intro para volver al menu!")
-    system("cls")        
+    system("clear")        
     menu()
 
 def formatText(country):
@@ -56,23 +55,35 @@ def game(userRegion):
     for i in region:
         regionCountries.append(i["name"]["common"])
     regionCountries2 = regionCountries[rand.randrange(0, len(regionCountries))]
-    capitalQuestion= {
-        "Question": f"¿Cual es la capital de {regionCountries2}?",
-        "key": "capital",
-        "Answer": "COGEMOS EL PAIS Y SACAMOS SU CAPITAL PARA EVALUAR CON LA RESPUESTA DEL USUARIO {capital}",
-        "UserAnswer": None
-    },
+    country = req.get(f"{url}/name/{regionCountries2}").json()
+    return country
+
+def question(country):
+    questions = {
+        "data":[{
+            "Question": f"¿Cual es la capital de {country[0]['name']['common']}?",
+            "id": "1",
+            "Answer": f"{country[0]['capital']}",
+            "UserAnswer": None
+            },
     {
-        "Question": f"¿Cual es la población de {regionCountries2}?",
-        "Key": "population",
-        "Answer": "COGEMOS EL PAIS Y SACAMOS SU POBLACION PARA EVALUAR CON LA RESPUESTA DEL USUARIO {population}",
-        "UserAnswer": None
-    }
-    questions = [capitalQuestion["Question"], populationQuestion["Question"]]
+            "Question": f"¿En que parte de {country[0]['region']} se encuentra {country[0]['name']['common']}?",
+            "id": "2",
+            "Answer": f"{country[0]['subregion']}",
+            "UserAnswer": None
+        }
+    ]    
+}
+    contador = 1
+    for i in questions["data"]:
+        if i["id"] == str(contador):
+            print(i["Question"])
+            
+            i["UserAnswer"] = input(": ")
+            contador += 1
+    print(questions)
+
     
-    return regionCountries2 ,questions[rand.randrange(0,len(capitalQuestion))]
-
-
 
 userInput = ""
 while userInput != "0":
@@ -91,13 +102,13 @@ while userInput != "0":
         print("- Asia")
         print("- Europe")
         print("- Oceania")
-        print(game(input("¿What region are you looking for? ")))
+        question(game(input("¿What region are you looking for? ")))        
         reloadMenu()
     else:
         print(f"¡ERROR! The option {userInput} is not available.¡Choose a correct option!")
         print("")
         menu()
     userInput = input("Choose one: ")
-    system("cls")
+    system("clear")
 
 
